@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq.Expressions;
 using System.Security.Cryptography;
 
 namespace hash_check_console
