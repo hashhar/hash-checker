@@ -19,7 +19,7 @@ A utility to check cryptographic hashes of files
 #### NOTES:
 
 - ****/w** has to be the first argument**
-- *****output file*** should be specified and must be the last argument if /o has been used** See case 3 in **Output**.
+- ***output file*** **should be specified and must be the last argument if /o has been used** See case 3 in **Output**.
 - The **/m**, **/s** and **/S** can be used together in any order
 - In the absence of any of **/m**, **/s** or **/S**, the program defaults to generating all the three hashes.
 
