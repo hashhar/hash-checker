@@ -2,26 +2,6 @@
 using System.IO;
 using System.Security.Cryptography;
 
-/* linux-args branch:
-- Removed the option to explicitly specify the output file from within the program. Use I/O redirection instead.
-*/
-
-/* To-do:
-- Add multi-letter argument support
-- Add support for using either of '/' or '-' as the argument specifier
-- Add support for verifying hashes by specifying an input file containing hash and file pairs
-- Decide between using I/O redirection or continuing the native option to dump the output to a file
-*/
-
-/* Expected usages:
-- hash-check
-	Show the proper usage
-- hash-check (No input file specified)
-	Message telling an input file has to be specified
-- hash-check (Incorrect arguments)
-	- Any argument not defined in the documentation (multi-letter arguments are planned to be supported so don't use argument length as a criteria)
-*/
-
 namespace hash_check_console
 {
 	class Program
@@ -98,7 +78,6 @@ namespace hash_check_console
 				outputFileStream.WriteLine("--------------------------------------------------------------------------------");
 				outputFileStream.WriteLine();
 			}
-			Console.WriteLine("The hashes have been written to {0}", outputFile);
 		}
 
 		static void WriteHashConsole(string inputFile, string md5Hash, string sha1Hash, string sha256Hash)
@@ -133,26 +112,16 @@ namespace hash_check_console
 		static void Main(string[] args)
 		{
 			// Values of these variables set to 1 mean that those hash formats have been requested by the user
-			bool md5 = false, sha1 = false, sha256 = false, write = false;
+			int md5 = 0, sha1 = 0, sha256 = 0;
 			if (args.Length == 0)
 			{
 				ShowUsage();
 				return;
 			}
-			// Check for all the arguments and set the values of the options as required
-			for (int i = 0; i < args.Length; i++)
-			{
-				if (args[i] == "/m" || args[i] == "/md5" || args[i] == "-m" || args[i] == "--md5")
-					md5 = true;
-				if (args[i] == "/s" || args[i] == "/sha1" || args[i] == "-s" || args[i] == "--sha1")
-					sha1 = true;
-				if (args[i] == "/S" || args[i] == "/sha256" || args[i] == "-S" || args[i] == "--sha256")
-					sha256 = true;
-				if (args[i] == "/w" || args[i] == "/write-to-file" || args[i] == "-w" || args[i] == "--write-to-file")
-					write = true;
-			}
-
-			if (args[0] != "/w" && args[args.Length - 1] != "/o" && (args[args.Length - 2] != "/o"))
+			// The output has to be written to the console because /w is missing
+			// The additional check for /o at this stage prevents the application from crashing if somebody uses /o without the /w
+			// The third clause in the if checks if the user has forgotten to enter output file when using /o
+			if (args[0] != "/w" && args[args.Length - 2] != "/o" && args[args.Length-1] != "/o")
 			{
 				// Keep looping forward until you find an argument without a backslash
 				for (int i = 0; args[i].Contains("/") == true; i++)
@@ -185,13 +154,13 @@ namespace hash_check_console
 			{
 				// Check if the outputFile has been specified
 				string outputFile;
-				if (args.Length >= 2 && args[args.Length - 2] == "/o")
+				if (args[args.Length - 2] == "/o")
 					outputFile = args[args.Length - 1];
 				else
 					// Set the outputFile name as the name of the last input file with the extension .checksum
 					outputFile = args[args.Length - 1] + ".checksum";
 				// Keep looping forward until you find an argument without a backslash
-				for (int i = 0; args[i].Contains("/") == true; i++)
+				for (int i = 1; args[i].Contains("/") == true; i++)
 				{
 					// Set the values indicating which hashes are requested
 					switch (args[i])
@@ -216,6 +185,7 @@ namespace hash_check_console
 						continue;
 					CalculateHash(args[j], outputFile, md5, sha1, sha256);
 				}
+				Console.WriteLine("The hashes have been written to {0}", outputFile);
 			}
 			Console.WriteLine("Done! Press any key to terminate.");
 			Console.ReadLine();
