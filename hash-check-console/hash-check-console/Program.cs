@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 
 /* To-do:
 - Add multi-letter argument support (Done)
-- Add support for using either of '/' or '-' as the argument specifier (Done)
+- Add support for using either of '/' or '-' as the argument delimiter (Done)
 - Add support for verifying hashes by specifying an input file containing hash and file pairs
 - Decide between using I/O redirection or continuing the native option to dump the output to a file (I/O redirection decided)
 */
