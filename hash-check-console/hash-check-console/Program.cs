@@ -2,6 +2,7 @@
 using System.IO;
 using System.Security.Cryptography;
 
+<<<<<<< HEAD
 /* To-do:
 - Add multi-letter argument support (Done)
 - Add support for using either of '/' or '-' as the argument delimiter (Done)
@@ -18,6 +19,8 @@ using System.Security.Cryptography;
 	- Any argument not defined in the documentation (multi-letter arguments are supported so don't use argument length as a criteria)
 */
 
+=======
+>>>>>>> master
 namespace hash_check_console
 {
 	class Program
@@ -131,6 +134,7 @@ namespace hash_check_console
 
 		static void Main(string[] args)
 		{
+<<<<<<< HEAD
 			// Tracks the hashes requested by the user (md5, sha1, sha256) and if the output has to be dumped to a default dump-file (write)
 			bool md5 = false, sha1 = false, sha256 = false, write = false;
 
@@ -138,11 +142,16 @@ namespace hash_check_console
 			// Tracks if an input file has been specified
 			bool inputFileSpecified = true;
 			// No arguments supplied, show the expected usage and terminate
+=======
+			// Values of these variables set to 1 mean that those hash formats have been requested by the user
+			int md5 = 0, sha1 = 0, sha256 = 0;
+>>>>>>> master
 			if (args.Length == 0)
 			{
 				ShowCorrectUsage();
 				return;
 			}
+<<<<<<< HEAD
 			// Confirm if an input file is specified by looking for at least one argument without /, - or --
 			foreach (string t in args)
 				if (!t.StartsWith("/") && !t.StartsWith("-") && !t.StartsWith("--"))
@@ -176,11 +185,57 @@ namespace hash_check_console
 					CalculateHash(t, outFile, write, md5, sha1, sha256);
 				// Unexpected argument encountered, show the expected usage and terminate
 				else
+=======
+			// The output has to be written to the console because /w is missing
+			// The additional check for /o at this stage prevents the application from crashing if somebody uses /o without the /w
+			// The third clause in the if checks if the user has forgotten to enter output file when using /o
+			if (args[0] != "/w" && args[args.Length - 2] != "/o" && args[args.Length-1] != "/o")
+			{
+				// Keep looping forward until you find an argument without a backslash
+				for (int i = 0; args[i].Contains("/") == true; i++)
+				{
+					switch (args[i])
+					{
+						case "/m":
+							md5 = 1;
+							break;
+						case "/s":
+							sha1 = 1;
+							break;
+						case "/S":
+							sha256 = 1;
+							break;
+					}
+				}
+				// By now we have the values of md5, sha1, sha256, crc32 indicating the required hashes
+				// Keep looping back the arguments until you find one containing a backslash
+				Console.WriteLine();
+				for (int j = args.Length - 1; j >= 0 && args[j].Contains("/") == false; j--)
+				{
+					CalculateHash(args[j], null, md5, sha1, sha256);
+					Console.WriteLine("--------------------------------------------------------------------------------");
+					Console.WriteLine();
+				}
+			}
+			// The output has to be dumped to a file
+			else
+			{
+				// Check if the outputFile has been specified
+				string outputFile;
+				if (args[args.Length - 2] == "/o")
+					outputFile = args[args.Length - 1];
+				else
+					// Set the outputFile name as the name of the last input file with the extension .checksum
+					outputFile = args[args.Length - 1] + ".checksum";
+				// Keep looping forward until you find an argument without a backslash
+				for (int i = 1; args[i].Contains("/") == true; i++)
+>>>>>>> master
 				{
 					Console.WriteLine("Unexpected argument {0} encountered... Aborting!\n\n", t);
 					ShowCorrectUsage();
 					return;
 				}
+				Console.WriteLine("The hashes have been written to {0}", outputFile);
 			}
 			// If we have reached here, it means everything has happened successfully
 			Console.WriteLine("Done! Press any key to terminate.");
