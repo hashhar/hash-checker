@@ -9,7 +9,6 @@ v1.0
 - **/m** - Generates the MD5 hash
 - **/s** - Generates the SHA1 hash
 - **/S** - Generates the SHA256 hash
-<<<<<<< HEAD
 - **file** - Specifies the input files whose hashes have to be calculated (at least one file name must be specified)
 - **/o** - Used to set a user defined file name for the output file. **Can be used without /w but needs the output file for expected results.**
 - **output file** - Specifies a user defined output file. **Treated as an input file if /o is not used.**
@@ -26,7 +25,6 @@ v1.0
 
 - ****/w** has to be the first argument**
 - ***output file*** **should be specified and must be the last argument if /o has been used** See case 3 in **Output**.
->>>>>>> master
 - The **/m**, **/s** and **/S** can be used together in any order
 - In the absence of any of **/m**, **/s** or **/S**, the program defaults to generating all the three hashes.
 
@@ -75,8 +73,4 @@ v2.0
 #### Known issues:
 - If the output file already exists, then the program will simply append its output to the end of the file.
 
-<<<<<<< HEAD
 ##### If you find any other issues, please file an issue at [GitHub](<https://github.com/hashhar/hash-checker/issues/new>) or e-mail me at <hashhar_dev@outlook.com>.
-=======
-##### If you find any other issues, please file an issue at [GitHub](https://github.com/hashhar/hash-checker/issues/new) or e-mail me at [hashhar_dev@outlook.com](mailto:hashhar_dev@outlook.com).
->>>>>>> master
