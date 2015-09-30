@@ -1,7 +1,7 @@
-**Release Notes**
-=================
-v1.0
-----
+# **Release Notes**
+
+## v1.0
+
 ### Usage:
 `hash-checker [/w] [/m] [/s] [/S] file1 [file2] [file3]...[/o] [output file]`
 
@@ -37,8 +37,8 @@ v1.0
 - If the output file already exists, then the program will simply append its
     output to the end of the file.
 
-v2.0
-----
+## v2.0
+
 ### Usage:
 `hash-checker [/w] [/m] [/s] [/S] file1 [file2] [file3]...`
 
