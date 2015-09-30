@@ -16,7 +16,6 @@ v1.0
 #### NOTES:
 - **/w** has to be the first argument
 - **output file** should be specified and must be the last argument if **/o** has been used. See case 3 in **Output**.
-=======
 - ***file*** - Specifies the input files whose hashes have to be calculated (at least one filename must be specified)
 - **/o** - Used to set a user defined filename for the output file. **Can be used without /w but needs the *output file* for expected results.**
 - ***output file*** - Specifies a user defined output file. **Treated as an input file if /o is not used.**
