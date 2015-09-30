@@ -176,7 +176,6 @@ namespace hash_check_console
 					ShowCorrectUsage();
 					return;
 				}
-				Console.WriteLine("The hashes have been written to {0}", outputFile);
 			}
 			// If we have reached here, it means everything has happened successfully
 			Console.WriteLine("Done! Press any key to terminate.");
